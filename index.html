@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriCredit - Farmer Credit Scoring Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌾</text></svg>">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="app-header">
+        <nav class="nav-container">
+            <div class="nav-brand">
+                <span class="brand-icon">🌾</span>
+                <span class="brand-text">AgriCredit</span>
+            </div>
+            <div class="nav-actions" id="navActions" style="display: none;">
+                <span class="user-welcome" id="userWelcome"></span>
+                <button class="btn btn--outline btn--sm" id="logoutBtn">Logout</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Application Container -->
+    <main class="app-main">
+        <!-- Login Page -->
+        <div id="loginPage" class="page-container active">
+            <div class="login-container">
+                <div class="login-header">
+                    <h1>Farmer Credit Assessment Portal</h1>
+                    <p>Secure login for credit evaluation</p>
+                </div>
+                <form id="loginForm" class="login-form">
+                    <div class="form-group">
+                        <label class="form-label" for="username">Username</label>
+                        <input type="text" id="username" class="form-control" placeholder="Enter your username" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="password">Password</label>
+                        <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+                    </div>
+                    <div class="login-help">
+                        <div class="sample-credentials">
+                            <p><strong>Sample Login:</strong></p>
+                            <p>Username: <code>farmer123</code></p>
+                            <p>Password: <code>demo2024</code></p>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--full-width">Login</button>
+                    <div id="loginError" class="error-message" style="display: none;"></div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Farmer Details Page -->
+        <div id="farmerDetailsPage" class="page-container">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Farmer Details</h2>
+                    <div class="progress-indicator">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 33%"></div>
+                        </div>
+                        <span class="progress-text">Step 1 of 3</span>
+                    </div>
+                </div>
+                <form id="farmerDetailsForm" class="multi-step-form">
+                    <div class="form-section">
+                        <h3>Personal Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="farmerName">Full Name *</label>
+                                <input type="text" id="farmerName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="farmerAge">Age *</label>
+                                <input type="number" id="farmerAge" class="form-control" min="18" max="80" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="farmerPhone">Contact Number *</label>
+                                <input type="tel" id="farmerPhone" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="farmerEmail">Email Address</label>
+                                <input type="email" id="farmerEmail" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="farmerAddress">Address *</label>
+                            <textarea id="farmerAddress" class="form-control" rows="3" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Farm Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="landSize">Land Size (acres) *</label>
+                                <input type="number" id="landSize" class="form-control" min="0.1" step="0.1" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="ownershipType">Land Ownership *</label>
+                                <select id="ownershipType" class="form-control" required>
+                                    <option value="">Select ownership type</option>
+                                    <option value="owned">Owned</option>
+                                    <option value="leased">Leased</option>
+                                    <option value="sharecropping">Share Cropping</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="farmingExperience">Farming Experience (years) *</label>
+                                <input type="number" id="farmingExperience" class="form-control" min="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="soilType">Soil Type *</label>
+                                <select id="soilType" class="form-control" required>
+                                    <option value="">Select soil type</option>
+                                    <option value="clay">Clay</option>
+                                    <option value="sandy">Sandy</option>
+                                    <option value="loam">Loam</option>
+                                    <option value="silt">Silt</option>
+                                    <option value="peat">Peat</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Financial Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="annualIncome">Annual Income (₹) *</label>
+                                <input type="number" id="annualIncome" class="form-control" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="existingLoans">Existing Loans (₹)</label>
+                                <input type="number" id="existingLoans" class="form-control" min="0" value="0">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="bankAccount">Bank Account Number *</label>
+                            <input type="text" id="bankAccount" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn--primary">Next: Alternative Data</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Alternative Data Page -->
+        <div id="alternativeDataPage" class="page-container">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Alternative Data Collection</h2>
+                    <div class="progress-indicator">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 66%"></div>
+                        </div>
+                        <span class="progress-text">Step 2 of 3</span>
+                    </div>
+                </div>
+                <form id="alternativeDataForm" class="multi-step-form">
+                    <div class="form-section">
+                        <h3>Crop & Agricultural Data</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="primaryCrop">Primary Crop *</label>
+                                <select id="primaryCrop" class="form-control" required>
+                                    <option value="">Select primary crop</option>
+                                    <option value="rice">Rice</option>
+                                    <option value="wheat">Wheat</option>
+                                    <option value="cotton">Cotton</option>
+                                    <option value="sugarcane">Sugarcane</option>
+                                    <option value="maize">Maize</option>
+                                    <option value="pulses">Pulses</option>
+                                    <option value="vegetables">Vegetables</option>
+                                    <option value="fruits">Fruits</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="irrigationType">Irrigation Type *</label>
+                                <select id="irrigationType" class="form-control" required>
+                                    <option value="">Select irrigation type</option>
+                                    <option value="drip">Drip Irrigation</option>
+                                    <option value="sprinkler">Sprinkler</option>
+                                    <option value="canal">Canal</option>
+                                    <option value="tube-well">Tube Well</option>
+                                    <option value="rain-fed">Rain-fed</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Climate & Environmental Data</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="averageRainfall">Average Annual Rainfall (mm) *</label>
+                                <input type="number" id="averageRainfall" class="form-control" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="averageTemperature">Average Temperature (°C) *</label>
+                                <input type="number" id="averageTemperature" class="form-control" min="0" max="50" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Technology & Market Access</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="phoneRechargeFreq">Phone Recharge Frequency *</label>
+                                <select id="phoneRechargeFreq" class="form-control" required>
+                                    <option value="">Select frequency</option>
+                                    <option value="weekly">Weekly</option>
+                                    <option value="biweekly">Bi-weekly</option>
+                                    <option value="monthly">Monthly</option>
+                                    <option value="irregular">Irregular</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="digitalPaymentUsage">Digital Payment Usage *</label>
+                                <select id="digitalPaymentUsage" class="form-control" required>
+                                    <option value="">Select usage level</option>
+                                    <option value="high">High (Daily)</option>
+                                    <option value="medium">Medium (Weekly)</option>
+                                    <option value="low">Low (Monthly)</option>
+                                    <option value="none">None</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="marketDistance">Distance to Nearest Market (km) *</label>
+                                <input type="number" id="marketDistance" class="form-control" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="farmEquipment">Farm Equipment Ownership *</label>
+                                <select id="farmEquipment" class="form-control" required>
+                                    <option value="">Select equipment level</option>
+                                    <option value="modern">Modern Equipment</option>
+                                    <option value="basic">Basic Equipment</option>
+                                    <option value="traditional">Traditional Tools</option>
+                                    <option value="none">None</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn--outline" id="backToFarmerDetails">Back</button>
+                        <button type="submit" class="btn btn--primary">Calculate Credit Score</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Results Page -->
+        <div id="resultsPage" class="page-container">
+            <div class="results-container">
+                <div class="results-header">
+                    <h2>Credit Assessment Results</h2>
+                    <div class="progress-indicator">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%"></div>
+                        </div>
+                        <span class="progress-text">Step 3 of 3 - Complete</span>
+                    </div>
+                </div>
+                
+                <div class="results-content">
+                    <div class="score-display">
+                        <div class="score-circle">
+                            <div class="score-number" id="creditScore">---</div>
+                            <div class="score-label">Credit Score</div>
+                        </div>
+                        <div class="risk-assessment">
+                            <div class="risk-category" id="riskCategory">
+                                <span class="status status--info" id="riskStatus">Calculating...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="recommendations">
+                        <div class="recommendation-card">
+                            <h3>Loan Recommendation</h3>
+                            <div class="loan-amount" id="recommendedAmount">₹ ---</div>
+                            <p class="loan-details" id="loanDetails">Based on your credit assessment...</p>
+                        </div>
+                    </div>
+
+                    <div class="score-breakdown">
+                        <h3>Score Breakdown</h3>
+                        <div class="breakdown-grid" id="scoreBreakdown">
+                            <!-- Breakdown items will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-actions">
+                    <button type="button" class="btn btn--outline" id="startNewAssessment">New Assessment</button>
+                    <button type="button" class="btn btn--primary" id="proceedToApplication">Proceed to Loan Application</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Page -->
+        <div id="dashboardPage" class="page-container">
+            <div class="dashboard-container">
+                <h2>Application Dashboard</h2>
+                <div class="dashboard-content">
+                    <div class="application-summary" id="applicationSummary">
+                        <!-- Application summary will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p>Processing your application...</p>
+        </div>
+    </div>
+
+    <!-- Success/Error Toast -->
+    <div id="toast" class="toast" style="display: none;">
+        <span id="toastMessage"></span>
+        <button id="toastClose" class="toast-close">&times;</button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
